@@ -1,5 +1,4 @@
 import matplotlib.pyplot as plt
-import math
 import numpy as np
 
 
@@ -16,7 +15,7 @@ def main():
     is_first_round = True
     last_input = 'no_input'
     end_game_key = 'e'
-    info_message = f'Enter: \n{rps[0]} for rock, \n{rps[1]} for paper, \n{rps[2]} for scissors. \n{end_game_key} to end the game.'
+    info_message = f'Enter: \n{rps[0]} for rock, \n{rps[1]} for paper, \n{rps[2]} for scissors. \n{end_game_key} to end the game and draw result plot.'
     start_end_message = '-----------------------------'
 
     print(start_end_message)
@@ -86,7 +85,7 @@ def evaluate_payment(is_user_won, payment, payment_history):
     else:
         payment += 1
         payment_history.append(payment)
-        print(f'cmp wins! payment: {payment}')
+        print(f'computer wins! payment: {payment}')
 
     return payment
 
