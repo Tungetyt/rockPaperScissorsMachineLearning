@@ -14,7 +14,7 @@ def main():
                            , np.int32)
 
     is_first_round = True
-    last_user_input = 'no_input'
+    last_input = 'no_input'
     end_game_key = 'e'
     info_message = f'Enter: \n{rps[0]} for rock, \n{rps[1]} for paper, \n{rps[2]} for scissors. \n{end_game_key} to end the game.'
     start_end_message = '-----------------------------'
@@ -25,9 +25,9 @@ def main():
     while True:
         print(start_end_message)
 
-        user_input = input().casefold()
+        input_ = input().casefold()
 
-        if user_input == end_game_key:
+        if input_ == end_game_key:
             print('game has ended')
             print(start_end_message)
 
@@ -38,44 +38,44 @@ def main():
 
             break
 
-        if user_input not in rps:
+        if input_ not in rps:
             print(info_message)
             continue
 
         if is_first_round:
-            computer_choice = np.random.choice(rps)
+            comp_choice = np.random.choice(rps)
             is_first_round = False
             print(rps_history)
-        elif last_user_input == rps[0]:
-            computer_choice = comp_choose_and_learn(rps, rps_history, user_input, 0)
-        elif last_user_input == rps[1]:
-            computer_choice = comp_choose_and_learn(rps, rps_history, user_input, 1)
+        elif last_input == rps[0]:
+            comp_choice = comp_choose_and_learn(rps, rps_history, input_, 0)
+        elif last_input == rps[1]:
+            comp_choice = comp_choose_and_learn(rps, rps_history, input_, 1)
         else:
-            computer_choice = comp_choose_and_learn(rps, rps_history, user_input, 2)
+            comp_choice = comp_choose_and_learn(rps, rps_history, input_, 2)
 
-        print(computer_choice)
+        print(comp_choice)
 
         # sprawdzenie kto wygral
-        if user_input == computer_choice:
+        if input_ == comp_choice:
             print(f'tie! payment: {payment}')
             payment_history.append(payment)
-        elif user_input == rps[0]:
-            if computer_choice == rps[1]:
+        elif input_ == rps[0]:
+            if comp_choice == rps[1]:
                 payment = evaluate_payment(False, payment, payment_history)
-            elif computer_choice == rps[2]:
+            elif comp_choice == rps[2]:
                 payment = evaluate_payment(True, payment, payment_history)
-        elif user_input == rps[1]:
-            if computer_choice == rps[2]:
+        elif input_ == rps[1]:
+            if comp_choice == rps[2]:
                 payment = evaluate_payment(False, payment, payment_history)
-            elif computer_choice == rps[0]:
+            elif comp_choice == rps[0]:
                 payment = evaluate_payment(True, payment, payment_history)
-        elif user_input == rps[2]:
-            if computer_choice == rps[0]:
+        elif input_ == rps[2]:
+            if comp_choice == rps[0]:
                 payment = evaluate_payment(False, payment, payment_history)
-            elif computer_choice == rps[1]:
+            elif comp_choice == rps[1]:
                 payment = evaluate_payment(True, payment, payment_history)
 
-        last_user_input = user_input
+        last_input = input_
 
 
 def evaluate_payment(is_user_won, payment, payment_history):
@@ -92,14 +92,14 @@ def evaluate_payment(is_user_won, payment, payment_history):
 
 
 def comp_choose_and_learn(rps, rps_matrix, user_input, row_number):
-    computer_guess = np.random.choice(rps, p=(rps_matrix[row_number] / sum(rps_matrix[row_number])))
+    comp_guess = np.random.choice(rps, p=(rps_matrix[row_number] / sum(rps_matrix[row_number])))
 
-    if computer_guess == rps[0]:
-        computer_choice = rps[1]
-    elif computer_guess == rps[1]:
-        computer_choice = rps[2]
+    if comp_guess == rps[0]:
+        comp_choice = rps[1]
+    elif comp_guess == rps[1]:
+        comp_choice = rps[2]
     else:
-        computer_choice = rps[0]
+        comp_choice = rps[0]
 
     if user_input == rps[0]:
         rps_matrix[row_number][0] += 1
@@ -110,7 +110,7 @@ def comp_choose_and_learn(rps, rps_matrix, user_input, row_number):
 
     print(rps_matrix)
 
-    return computer_choice
+    return comp_choice
 
 
 main()
