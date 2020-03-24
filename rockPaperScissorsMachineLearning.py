@@ -44,11 +44,14 @@ def main():
             continue
 
         if last_input == rps[0]:
-            comp_choice = comp_choose_and_learn(rps, rps_history, input_, 0)
+            comp_choice = comp_choose(rps, rps_history, 0)
+            comp_learn(rps, rps_history, input_, 0)
         elif last_input == rps[1]:
-            comp_choice = comp_choose_and_learn(rps, rps_history, input_, 1)
+            comp_choice = comp_choose(rps, rps_history, 1)
+            comp_learn(rps, rps_history, input_, 1)
         elif last_input == rps[2]:
-            comp_choice = comp_choose_and_learn(rps, rps_history, input_, 2)
+            comp_choice = comp_choose(rps, rps_history, 2)
+            comp_learn(rps, rps_history, input_, 2)
         else:
             comp_choice = np.random.choice(rps)
 
@@ -71,7 +74,7 @@ def main():
         last_input = input_
 
 
-def comp_choose_and_learn(rps, rps_history, input_, row):
+def comp_choose(rps, rps_history, row):
     comp_guess = np.random.choice(rps, p=(rps_history[row] / sum(rps_history[row])))
 
     if comp_guess == rps[0]:
@@ -81,14 +84,16 @@ def comp_choose_and_learn(rps, rps_history, input_, row):
     else:
         comp_choice = rps[0]
 
+    return comp_choice
+
+
+def comp_learn(rps, rps_history, input_, row):
     if input_ == rps[0]:
         rps_history[row][0] += 1
     elif input_ == rps[1]:
         rps_history[row][1] += 1
     else:
         rps_history[row][2] += 1
-
-    return comp_choice
 
 
 main()
