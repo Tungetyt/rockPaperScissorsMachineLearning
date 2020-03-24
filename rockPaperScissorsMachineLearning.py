@@ -69,7 +69,7 @@ def main():
                 payment = evaluate_payment(False, payment, payment_history)
             else:
                 payment = evaluate_payment(True, payment, payment_history)
-        elif input_ == rps[2]:
+        else:
             if comp_choice == rps[0]:
                 payment = evaluate_payment(False, payment, payment_history)
             else:
