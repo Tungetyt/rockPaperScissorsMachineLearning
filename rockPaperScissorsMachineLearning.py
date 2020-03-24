@@ -62,17 +62,17 @@ def main():
         elif input_ == rps[0]:
             if comp_choice == rps[1]:
                 payment = evaluate_payment(False, payment, payment_history)
-            elif comp_choice == rps[2]:
+            else:
                 payment = evaluate_payment(True, payment, payment_history)
         elif input_ == rps[1]:
             if comp_choice == rps[2]:
                 payment = evaluate_payment(False, payment, payment_history)
-            elif comp_choice == rps[0]:
+            else:
                 payment = evaluate_payment(True, payment, payment_history)
         elif input_ == rps[2]:
             if comp_choice == rps[0]:
                 payment = evaluate_payment(False, payment, payment_history)
-            elif comp_choice == rps[1]:
+            else:
                 payment = evaluate_payment(True, payment, payment_history)
 
         last_input = input_
