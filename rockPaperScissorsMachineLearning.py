@@ -12,7 +12,7 @@ def main():
                             [1, 1, 1]]
                            , np.int32)
 
-    last_input = ''
+    prev_input = ''
     end_game_key = 'e'
     info_message = f'Enter: \n{rps[0]} for rock, ' \
                    f'\n{rps[1]} for paper, ' \
@@ -43,27 +43,33 @@ def main():
             print(info_message)
             continue
 
-        if last_input == rps[0]:
-            comp_choice = comp_choose(rps, rps_history, 0)
-            comp_learn(rps, rps_history, input_, 0)
-        elif last_input == rps[1]:
-            comp_choice = comp_choose(rps, rps_history, 1)
-            comp_learn(rps, rps_history, input_, 1)
-        elif last_input == rps[2]:
-            comp_choice = comp_choose(rps, rps_history, 2)
-            comp_learn(rps, rps_history, input_, 2)
-        else:
-            comp_choice = np.random.choice(rps)
+        input_idx = rps.index(input_)
 
-        print(comp_choice)
+        if prev_input != '':
+            prev_input_idx = rps.index(prev_input)
+            comp_guess_idx = rps.index(np.random.choice(
+                rps, p=(rps_history[prev_input_idx] / sum(rps_history[prev_input_idx]))))
+
+            if comp_guess_idx == 0:
+                comp_choice_idx = 1
+            elif comp_guess_idx == 1:
+                comp_choice_idx = 2
+            else:
+                comp_choice_idx = 0
+
+            rps_history[prev_input_idx][input_idx] += 1
+        else:
+            comp_choice_idx = rps.index(np.random.choice(rps))
+
+        print(rps[comp_choice_idx])
         print(rps_history)
 
         # sprawdzenie kto wygral
-        if input_ == comp_choice:
+        if input_idx == comp_choice_idx:
             print(f'tie! payment: {payment}')
-        elif (input_ == rps[0] and comp_choice == rps[1]) or \
-                (input_ == rps[1] and comp_choice == rps[2]) or \
-                (input_ == rps[2] and comp_choice == rps[0]):
+        elif (input_idx == 0 and comp_choice_idx == 1) or \
+                (input_idx == 1 and comp_choice_idx == 2) or \
+                (input_idx == 2 and comp_choice_idx == 0):
             payment += 1
             print(f'computer wins! payment: {payment}')
         else:
@@ -71,29 +77,7 @@ def main():
             print(f'user wins! payment: {payment}')
 
         payment_history.append(payment)
-        last_input = input_
-
-
-def comp_choose(rps, rps_history, row):
-    comp_guess = np.random.choice(rps, p=(rps_history[row] / sum(rps_history[row])))
-
-    if comp_guess == rps[0]:
-        comp_choice = rps[1]
-    elif comp_guess == rps[1]:
-        comp_choice = rps[2]
-    else:
-        comp_choice = rps[0]
-
-    return comp_choice
-
-
-def comp_learn(rps, rps_history, input_, row):
-    if input_ == rps[0]:
-        rps_history[row][0] += 1
-    elif input_ == rps[1]:
-        rps_history[row][1] += 1
-    else:
-        rps_history[row][2] += 1
+        prev_input = input_
 
 
 main()
