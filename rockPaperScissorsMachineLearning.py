@@ -12,8 +12,7 @@ def main():
                             [1, 1, 1]]
                            , np.int32)
 
-    is_first_round = True
-    last_input = 'no_input'
+    last_input = ''
     end_game_key = 'e'
     info_message = f'Enter: \n{rps[0]} for rock, ' \
                    f'\n{rps[1]} for paper, ' \
@@ -44,15 +43,14 @@ def main():
             print(info_message)
             continue
 
-        if is_first_round:
-            comp_choice = np.random.choice(rps)
-            is_first_round = False
-        elif last_input == rps[0]:
+        if last_input == rps[0]:
             comp_choice = comp_choose_and_learn(rps, rps_history, input_, 0)
         elif last_input == rps[1]:
             comp_choice = comp_choose_and_learn(rps, rps_history, input_, 1)
-        else:
+        elif last_input == rps[2]:
             comp_choice = comp_choose_and_learn(rps, rps_history, input_, 2)
+        else:
+            comp_choice = np.random.choice(rps)
 
         print(comp_choice)
         print(rps_history)
