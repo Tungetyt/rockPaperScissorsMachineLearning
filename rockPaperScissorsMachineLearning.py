@@ -61,24 +61,24 @@ def main():
             payment_history.append(payment)
         elif user_input == rps[0]:
             if computer_choice == rps[1]:
-                payment = evaluate_winner(False, payment, payment_history)
+                payment = evaluate_payment(False, payment, payment_history)
             elif computer_choice == rps[2]:
-                payment = evaluate_winner(True, payment, payment_history)
+                payment = evaluate_payment(True, payment, payment_history)
         elif user_input == rps[1]:
             if computer_choice == rps[2]:
-                payment = evaluate_winner(False, payment, payment_history)
+                payment = evaluate_payment(False, payment, payment_history)
             elif computer_choice == rps[0]:
-                payment = evaluate_winner(True, payment, payment_history)
+                payment = evaluate_payment(True, payment, payment_history)
         elif user_input == rps[2]:
             if computer_choice == rps[0]:
-                payment = evaluate_winner(False, payment, payment_history)
+                payment = evaluate_payment(False, payment, payment_history)
             elif computer_choice == rps[1]:
-                payment = evaluate_winner(True, payment, payment_history)
+                payment = evaluate_payment(True, payment, payment_history)
 
         last_user_input = user_input
 
 
-def evaluate_winner(is_user_won, payment, payment_history):
+def evaluate_payment(is_user_won, payment, payment_history):
     if is_user_won:
         payment -= 1
         payment_history.append(payment)
