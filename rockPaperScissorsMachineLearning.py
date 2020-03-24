@@ -71,7 +71,7 @@ def main():
         last_input = input_
 
 
-def comp_choose_and_learn(rps, rps_history, user_input, row):
+def comp_choose_and_learn(rps, rps_history, input_, row):
     comp_guess = np.random.choice(rps, p=(rps_history[row] / sum(rps_history[row])))
 
     if comp_guess == rps[0]:
@@ -81,9 +81,9 @@ def comp_choose_and_learn(rps, rps_history, user_input, row):
     else:
         comp_choice = rps[0]
 
-    if user_input == rps[0]:
+    if input_ == rps[0]:
         rps_history[row][0] += 1
-    elif user_input == rps[1]:
+    elif input_ == rps[1]:
         rps_history[row][1] += 1
     else:
         rps_history[row][2] += 1
