@@ -91,8 +91,8 @@ def evaluate_payment(is_user_won, payment, payment_history):
     return payment
 
 
-def comp_choose_and_learn(rps, rps_history, user_input, row_number):
-    comp_guess = np.random.choice(rps, p=(rps_history[row_number] / sum(rps_history[row_number])))
+def comp_choose_and_learn(rps, rps_history, user_input, row):
+    comp_guess = np.random.choice(rps, p=(rps_history[row] / sum(rps_history[row])))
 
     if comp_guess == rps[0]:
         comp_choice = rps[1]
@@ -102,11 +102,11 @@ def comp_choose_and_learn(rps, rps_history, user_input, row_number):
         comp_choice = rps[0]
 
     if user_input == rps[0]:
-        rps_history[row_number][0] += 1
+        rps_history[row][0] += 1
     elif user_input == rps[1]:
-        rps_history[row_number][1] += 1
+        rps_history[row][1] += 1
     else:
-        rps_history[row_number][2] += 1
+        rps_history[row][2] += 1
 
     print(rps_history)
 
