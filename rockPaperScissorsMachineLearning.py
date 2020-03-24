@@ -15,7 +15,10 @@ def main():
     is_first_round = True
     last_input = 'no_input'
     end_game_key = 'e'
-    info_message = f'Enter: \n{rps[0]} for rock, \n{rps[1]} for paper, \n{rps[2]} for scissors. \n{end_game_key} to end the game and draw result plot.'
+    info_message = f'Enter: \n{rps[0]} for rock, ' \
+                   f'\n{rps[1]} for paper, ' \
+                   f'\n{rps[2]} for scissors, ' \
+                   f'\n{end_game_key} to end the game and draw result plot.'
     start_end_message = '-----------------------------'
 
     print(start_end_message)
@@ -44,7 +47,6 @@ def main():
         if is_first_round:
             comp_choice = np.random.choice(rps)
             is_first_round = False
-            print(rps_history)
         elif last_input == rps[0]:
             comp_choice = comp_choose_and_learn(rps, rps_history, input_, 0)
         elif last_input == rps[1]:
@@ -53,41 +55,22 @@ def main():
             comp_choice = comp_choose_and_learn(rps, rps_history, input_, 2)
 
         print(comp_choice)
+        print(rps_history)
 
         # sprawdzenie kto wygral
         if input_ == comp_choice:
             print(f'tie! payment: {payment}')
-            payment_history.append(payment)
-        elif input_ == rps[0]:
-            if comp_choice == rps[1]:
-                payment = evaluate_payment(False, payment, payment_history)
-            else:
-                payment = evaluate_payment(True, payment, payment_history)
-        elif input_ == rps[1]:
-            if comp_choice == rps[2]:
-                payment = evaluate_payment(False, payment, payment_history)
-            else:
-                payment = evaluate_payment(True, payment, payment_history)
+        elif (input_ == rps[0] and comp_choice == rps[1]) or \
+                (input_ == rps[1] and comp_choice == rps[2]) or \
+                (input_ == rps[2] and comp_choice == rps[0]):
+            payment += 1
+            print(f'computer wins! payment: {payment}')
         else:
-            if comp_choice == rps[0]:
-                payment = evaluate_payment(False, payment, payment_history)
-            else:
-                payment = evaluate_payment(True, payment, payment_history)
+            payment -= 1
+            print(f'user wins! payment: {payment}')
 
+        payment_history.append(payment)
         last_input = input_
-
-
-def evaluate_payment(is_user_won, payment, payment_history):
-    if is_user_won:
-        payment -= 1
-        payment_history.append(payment)
-        print(f'user wins! payment: {payment}')
-    else:
-        payment += 1
-        payment_history.append(payment)
-        print(f'computer wins! payment: {payment}')
-
-    return payment
 
 
 def comp_choose_and_learn(rps, rps_history, user_input, row):
@@ -106,8 +89,6 @@ def comp_choose_and_learn(rps, rps_history, user_input, row):
         rps_history[row][1] += 1
     else:
         rps_history[row][2] += 1
-
-    print(rps_history)
 
     return comp_choice
 
