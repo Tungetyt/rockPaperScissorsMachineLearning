@@ -6,7 +6,7 @@ import numpy as np
 def main():
     rps = ['r', 'p', 's']
     payment = 0
-    payment_history = []
+    payment_history = [payment]
     is_first_round = True
     last_user_input = 'no_input'
     end_game_key = 'e'
@@ -20,7 +20,6 @@ def main():
     print(info_message)
 
     while True:
-        # wybor usera
         print(start_end_message)
         user_input = input().casefold()
 
