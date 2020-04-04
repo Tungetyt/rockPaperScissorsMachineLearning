@@ -43,33 +43,33 @@ def main():
             print(info_message)
             continue
 
-        input_idx = rps.index(input_)
+        column = rps.index(input_)
 
         if prev_input != '':
-            prev_input_idx = rps.index(prev_input)
-            comp_guess_idx = rps.index(np.random.choice(
-                rps, p=(rps_history[prev_input_idx] / sum(rps_history[prev_input_idx]))))
+            row = rps.index(prev_input)
+            comp_guess = rps.index(np.random.choice(
+                rps, p=(rps_history[row] / sum(rps_history[row]))))
 
-            if comp_guess_idx == 0:
-                comp_choice_idx = 1
-            elif comp_guess_idx == 1:
-                comp_choice_idx = 2
+            if comp_guess == 0:
+                comp_choice = 1
+            elif comp_guess == 1:
+                comp_choice = 2
             else:
-                comp_choice_idx = 0
+                comp_choice = 0
 
-            rps_history[prev_input_idx][input_idx] += 1
+            rps_history[row][column] += 1
         else:
-            comp_choice_idx = rps.index(np.random.choice(rps))
+            comp_choice = rps.index(np.random.choice(rps))
 
-        print(rps[comp_choice_idx])
+        print(rps[comp_choice])
         print(rps_history)
 
         # sprawdzenie kto wygral
-        if input_idx == comp_choice_idx:
+        if column == comp_choice:
             print(f'tie! payment: {payment}')
-        elif (input_idx == 0 and comp_choice_idx == 1) or \
-                (input_idx == 1 and comp_choice_idx == 2) or \
-                (input_idx == 2 and comp_choice_idx == 0):
+        elif (column == 0 and comp_choice == 1) or \
+                (column == 1 and comp_choice == 2) or \
+                (column == 2 and comp_choice == 0):
             payment += 1
             print(f'computer wins! payment: {payment}')
         else:
